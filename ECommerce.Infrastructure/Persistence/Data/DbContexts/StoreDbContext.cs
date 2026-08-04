@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerce.Infrastructure.Data.DbContexts
+namespace ECommerce.Infrastructure.Persistence.Data.DbContexts
 {
     public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContext(options)
     {

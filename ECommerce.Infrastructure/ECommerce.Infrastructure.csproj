@@ -24,8 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-    <Folder Include="Data\Migrations\" />
+    <Folder Include="Persistence\Data\Configurations\" />
+    <Folder Include="Persistence\Data\Migrations\" />
+    <Folder Include="Persistence\Seeding\Data\" />
+    <Folder Include="Persistence\Seeding\Models\" />
   </ItemGroup>
 
 </Project>
