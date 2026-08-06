@@ -1,4 +1,5 @@
 ﻿using ECommerce.Infrastructure.Persistence.Data.DbContexts;
+using ECommerce.Infrastructure.Persistence.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ namespace ECommerce.Infrastructure
                 options.UseNpgsql(config.GetConnectionString("DefaultConnection"))
                        .EnableSensitiveDataLogging();
             });
+
+            services.AddScoped<DatabaseSeeder>();
             return services;
         }
     }
