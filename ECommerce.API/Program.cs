@@ -14,6 +14,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     await using var scope = app.Services.CreateAsyncScope();
@@ -24,5 +27,10 @@ if (app.Environment.IsDevelopment())
     await dbSeed.SeedAll();
 }
 // Configure the HTTP request pipeline.
+
+app.MapGet("/test/internal-server-error", () =>
+{
+    throw new Exception("Test Internal Server Error");
+});
 
 app.Run();
