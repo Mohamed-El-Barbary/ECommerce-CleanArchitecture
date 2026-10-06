@@ -15,6 +15,8 @@ public abstract class Specification<T> : ISpecification<T> where T : BaseEntity
     private readonly List<IncludeExpressionInfo> _includeExpressions = [];
     private readonly List<OrderExpressionInfo<T>> _orderExpressions = [];
 
+    // builder
+    protected ISpecificationBuilder<T> Query => new SpecificationBuilder<T>(this);
 
     public IReadOnlyList<Expression<Func<T, bool>>> WhereExpressions => _whereExpressions;
     public IReadOnlyList<Expression<Func<T, object>>> Includes => _includes;
@@ -60,6 +62,8 @@ public abstract class Specification<T> : ISpecification<T> where T : BaseEntity
 
 public abstract class Specification<T, TResult> : Specification<T>, ISpecification<T, TResult> where T : BaseEntity
 {
+    protected new ISpecificationBuilder<T,TResult> Query => new SpecificationBuilder<T,TResult>(this);
+
     public Expression<Func<T, TResult>>? Selector { get; private set; }
     public Expression<Func<T, IEnumerable<TResult>>>? SelectorMany { get; private set; }
 
