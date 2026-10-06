@@ -49,22 +49,17 @@ public interface IIncludableCollectionSpecificationBuilder<T, TElement>
 
 public interface ISpecificationBuilder<T, TResult> where T : BaseEntity
 {
-    ISpecificationBuilder<T,TResult> Where(Expression<Func<T, bool>> predicate);
+    ISpecificationBuilder<T, TResult> Where(Expression<Func<T, bool>> predicate);
 
     // Order
     IOrderSpecificationBuilder<T> OrderBy(Expression<Func<T, object?>> orderExpression);
     IOrderSpecificationBuilder<T> OrderByDescending(Expression<Func<T, object?>> orderExpression);
 
-    // inclide
-    IIncludableSpecificationBuilder<T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> navigation);
-    IIncludableCollectionSpecificationBuilder<T, TElement> Include<TElement>(
-        Expression<Func<T, ICollection<TElement>>> navigation);
+    ISpecificationBuilder<T, TResult> Skip(int skip);
+    ISpecificationBuilder<T, TResult> Take(int take);
 
-    ISpecificationBuilder<T> Skip(int skip);
-    ISpecificationBuilder<T> Take(int take);
-
-    ISpecificationBuilder<T> AsNoTracking();
-    ISpecificationBuilder<T> AsTracking();
+    ISpecificationBuilder<T, TResult> AsNoTracking();
+    ISpecificationBuilder<T, TResult> AsTracking();
 
     ISpecificationBuilder<T, TResult> Select(Expression<Func<T, TResult>> selctor);
     ISpecificationBuilder<T, TResult> SelectMany(Expression<Func<T, IEnumerable<TResult>>> selctor);
