@@ -1,4 +1,6 @@
 ﻿using ECommerce.Domain.Entities;
+using ECommerce.UseCases.Specifications.Includes;
+using ECommerce.UseCases.Specifications.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -26,34 +28,13 @@ public interface ISpecificationBuilder<T> where T : BaseEntity
     ISpecificationBuilder<T> AsTracking();
 }
 
-public interface IOrderSpecificationBuilder<T>
-    : ISpecificationBuilder<T> where T : BaseEntity
-{
-    IOrderSpecificationBuilder<T> ThenBy(Expression<Func<T, object?>> orderExpression);
-    IOrderSpecificationBuilder<T> ThenByDescending(Expression<Func<T, object?>> orderExpression);
-}
-
-public interface IIncludableSpecificationBuilder<T, TProperty>
-    : ISpecificationBuilder<T> where T : BaseEntity
-{
-    IIncludableSpecificationBuilder<T, TNext> ThenInclude<TNext>(
-        Expression<Func<TProperty, TNext>> navigation);
-}
-
-public interface IIncludableCollectionSpecificationBuilder<T, TElement>
-    : ISpecificationBuilder<T> where T : BaseEntity
-{
-    IIncludableSpecificationBuilder<T, TNext> ThenInclude<TNext>(
-        Expression<Func<TElement, TNext>> navigation);
-}
-
 public interface ISpecificationBuilder<T, TResult> where T : BaseEntity
 {
     ISpecificationBuilder<T, TResult> Where(Expression<Func<T, bool>> predicate);
 
     // Order
-    IOrderSpecificationBuilder<T> OrderBy(Expression<Func<T, object?>> orderExpression);
-    IOrderSpecificationBuilder<T> OrderByDescending(Expression<Func<T, object?>> orderExpression);
+    IOrderSpecificationBuilder<T,TResult> OrderBy(Expression<Func<T, object?>> orderExpression);
+    IOrderSpecificationBuilder<T,TResult> OrderByDescending(Expression<Func<T, object?>> orderExpression);
 
     ISpecificationBuilder<T, TResult> Skip(int skip);
     ISpecificationBuilder<T, TResult> Take(int take);
